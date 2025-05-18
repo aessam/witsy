@@ -44,6 +44,7 @@
 import { Ref, ref, computed, onMounted } from 'vue'
 import { store } from '../services/store'
 import { t } from '../services/i18n'
+import { getOpenAIApiKey } from '../services/apikey'
 import AnimatedBlob from '../components/AnimatedBlob.vue'
 import NumberFlip from '../components/NumberFlip.vue'
 import useTipsManager from '../composables/tips_manager'
@@ -293,7 +294,7 @@ const startSession = async () => {
 
     peerConnection = await createRealtimeSession(
       audioStream,
-      store.config.engines.openai.apiKey,
+      getOpenAIApiKey(),
       voice.value
     )
 

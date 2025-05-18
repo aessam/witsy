@@ -7,6 +7,7 @@ import similarity from 'compute-cosine-similarity'
 import { Ollama } from 'ollama'
 import OpenAI from 'openai'
 import { GoogleGenerativeAI } from '@google/generative-ai'
+import { getOpenAIApiKey } from '../services/apikey'
 import { Embedding } from 'openai/resources'
 import LlmFactory, { ILlmManager } from '../llms/llm'
 // import path from 'path'
@@ -54,7 +55,7 @@ export default class Embedder {
     if (this.engine === 'openai') {
 
       this.openai = new OpenAI({
-        apiKey: this.config.engines.openai.apiKey,
+        apiKey: getOpenAIApiKey(),
         baseURL: this.config.engines.openai.baseURL || defaults.engines.openai.baseURL,
         dangerouslyAllowBrowser: true
       })
@@ -101,7 +102,7 @@ export default class Embedder {
       const engineConfig = this.config.engines[this.engine] as CustomEngineConfig
       if (engineConfig.api === 'openai') {
         this.openai = new OpenAI({
-          apiKey: engineConfig.apiKey,
+          apiKey: getOpenAIApiKey(),
           baseURL: engineConfig.baseURL,
           dangerouslyAllowBrowser: true
         })

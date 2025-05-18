@@ -2,6 +2,7 @@
 import { Configuration } from 'types/config'
 import { STTEngine, ProgressCallback, TranscribeResponse } from './stt'
 import OpenAI from 'openai'
+import { getOpenAIApiKey } from '../services/apikey'
 
 export default class STTOpenAI implements STTEngine {
 
@@ -17,7 +18,7 @@ export default class STTOpenAI implements STTEngine {
     constructor(config: Configuration) {
     this.config = config
     this.client = new OpenAI({
-      apiKey: config.engines.openai.apiKey,
+      apiKey: getOpenAIApiKey(),
       dangerouslyAllowBrowser: true
     })
   }
