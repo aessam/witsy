@@ -18,6 +18,8 @@ export default class AutoUpdater {
   }
 
   private initialize = () => {
+    // telemetry disabled
+    return
 
     // not available on mas
     if (process.mas) {
@@ -105,6 +107,7 @@ export default class AutoUpdater {
   }
 
   check = () => {
+    return
     if (this.downloading) {
       const t = useI18n(this.app)
       dialog.showMessageBox({
@@ -119,6 +122,7 @@ export default class AutoUpdater {
   }
 
   install = () => {
+    return
     if (this.updateAvailable) {
       console.log('Applying update')
       this.hooks.preInstall?.()

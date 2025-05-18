@@ -2,6 +2,7 @@
 import { Configuration } from '../types/config'
 import { SynthesisResponse, TTSEngine } from './tts-engine'
 import OpenAI from 'openai'
+import { getOpenAIApiKey } from '../services/apikey'
 
 export default class TTSOpenAI extends TTSEngine {
 
@@ -29,7 +30,7 @@ export default class TTSOpenAI extends TTSEngine {
   constructor(config: Configuration) {
     super(config)
     this.client = new OpenAI({
-      apiKey: config.engines.openai.apiKey,
+      apiKey: getOpenAIApiKey(),
       dangerouslyAllowBrowser: true
     })
   }

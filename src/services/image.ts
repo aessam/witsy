@@ -2,6 +2,7 @@ import { Model, xAIBaseURL } from 'multi-llm-ts'
 import { anyDict, MediaCreationEngine, MediaReference, MediaCreator } from '../types/index'
 import { saveFileContents, download } from '../services/download'
 import { store } from '../services/store'
+import { getOpenAIApiKey } from './apikey'
 import { HfInference } from '@huggingface/inference'
 import { GoogleGenerativeAI } from '@google/generative-ai'
 import Replicate, { FileOutput } from 'replicate'
@@ -13,7 +14,7 @@ export default class ImageCreator implements MediaCreator {
 
   static getEngines(checkApiKey: boolean): MediaCreationEngine[] {
     const engines = []
-    if (!checkApiKey || store.config.engines.openai.apiKey) {
+    if (!checkApiKey || getOpenAIApiKey()) {
       engines.push({ id: 'openai', name: 'OpenAI' })
     }
     if (!checkApiKey || store.config.engines.google.apiKey) {
@@ -96,7 +97,7 @@ export default class ImageCreator implements MediaCreator {
   }
 
   async openai(model: string, parameters: anyDict, reference?: MediaReference): Promise<anyDict> {
-    return this._openai('openai', store.config.engines.openai.apiKey, store.config.engines.openai.baseURL, model, parameters, reference)
+    return this._openai('openai', getOpenAIApiKey(), store.config.engines.openai.baseURL, model, parameters, reference)
   }
 
   async xai(model: string, parameters: anyDict): Promise<anyDict> {

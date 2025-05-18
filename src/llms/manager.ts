@@ -12,15 +12,18 @@ export default class LlmManager extends LlmManagerBase {
   }
 
   getStandardEngines = (): string[] => {
-    return [ 'openai', 'anthropic', 'google', 'xai', 'meta', 'ollama', 'mistralai', 'deepseek', 'openrouter', 'groq', 'cerebras' ]
+    // previously used models: ['openai','anthropic','google','xai','meta','ollama','mistralai','deepseek','openrouter','groq','cerebras']
+    return [ 'openai', 'ollama' ]
   }
 
   getPriorityEngines = (): string[] => {
-    return [ 'openai', 'anthropic', 'google', 'ollama' ]
+    // previously used models: ['openai','anthropic','google','ollama']
+    return [ 'openai', 'ollama' ]
   }
 
   getNonChatEngines = (): string[] => {
-    return [ 'huggingface', 'replicate', 'elevenlabs', 'sdwebui', 'falai', 'gladia', 'nvidia', 'fireworks' ]
+    // previously used models: ['huggingface','replicate','elevenlabs','sdwebui','falai','gladia','nvidia','fireworks']
+    return []
   }
 
   isEngineConfigured = (engine: string): boolean => {
